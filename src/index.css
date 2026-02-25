@@ -23,3 +23,14 @@
 html {
   scroll-behavior: smooth;
 }
+/* ===== Hide navigation arrows on mobile ===== */
+.projects-swiper .swiper-button-prev,
+.projects-swiper .swiper-button-next {
+  display: none !important;
+}
+
+
+/* Violet active pagination dot */
+.projects-swiper .swiper-pagination-bullet-active {
+  background-color: #7c3aed;
+}

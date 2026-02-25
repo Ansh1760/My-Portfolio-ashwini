@@ -1,84 +1,82 @@
 import React from "react";
-import profileImg from "../assets/anshImg.jpeg";
 
-/* ---------- Role Card ---------- */
-const RoleCard = ({ icon, title }) => (
-  <div
-    className="flex items-center gap-4 px-5 py-4 rounded-xl
-    bg-white border border-gray-200
-    shadow-sm hover:shadow-md
-    hover:border-violet-400/60 transition-all duration-300"
-  >
-    <span className="text-2xl">{icon}</span>
-    <span className="text-gray-800 font-medium">{title}</span>
+/* ---------- Education Card ---------- */
+const EducationCard = ({ year, title, place, score, details }) => (
+  <div className="relative pl-10 pb-14 border-l-2 border-violet-200">
+
+    {/* Dot */}
+    <div className="absolute -left-[11px] top-2 w-5 h-5 bg-violet-600 rounded-full border-4 border-white shadow" />
+
+    {/* Year Badge */}
+    <span className="inline-block text-xs font-medium bg-violet-100 text-violet-600 px-3 py-1 rounded-full mb-3">
+      {year}
+    </span>
+
+    <h4 className="text-lg font-semibold text-gray-900">
+      {title}
+    </h4>
+
+    <p className="text-sm text-gray-600 mt-1">
+      {place}
+    </p>
+
+    <p className="text-sm font-semibold text-violet-600 mt-2">
+      {score}
+    </p>
+
+    {details && (
+      <p className="text-sm text-gray-500 mt-3 leading-relaxed">
+        {details}
+      </p>
+    )}
   </div>
 );
 
 export default function About() {
   return (
     <section
-      id="about"
-      className="w-full bg-gradient-to-br from-slate-50 via-violet-50/30 to-indigo-50/50 py-20 px-4 sm:px-6 lg:px-16"
+      id="education"
+      className="w-full bg-gradient-to-br from-slate-50 via-violet-50/30 to-indigo-50/50 py-28 px-4 sm:px-6 lg:px-16"
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <div className="max-w-5xl mx-auto">
 
-        {/* ===== LEFT : TEXT ===== */}
-        <div className="space-y-6 text-center lg:text-left">
-
-          <span className="text-sm tracking-widest text-gray-500 uppercase">
-            Introduction
-          </span>
-
+        {/* Heading */}
+        <div className="text-center mb-20">
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900">
-            Overview<span className="text-violet-600">.</span>
+            Education<span className="text-violet-600">.</span>
           </h2>
-
-          <p className="text-gray-600 max-w-xl mx-auto lg:mx-0">
-            Full Stack Developer building production-ready web applications 
-using React, Node.js, and modern backend architectures.
-
-Focused on writing clean, maintainable code and solving 
-real-world engineering problems through strong DSA foundations.
-
+          <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
+            Academic journey and continuous learning foundation in Computer Science.
           </p>
-
-          <p className="text-gray-600 max-w-xl mx-auto lg:mx-0">
-            Quick learner. Strong logical thinking. Actively practicing DSA.
-          </p>
-
-          {/* ===== ROLE CARDS ===== */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 max-w-xl mx-auto lg:mx-0">
-            <RoleCard icon="💻" title="⚛️ Frontend Engineering (React, Next.js)" />
-            <RoleCard icon="⚛️" title="⚙️ Backend Systems (Node.js, APIs, Databases)" />
-            <RoleCard icon="⚙️" title="🧠 Problem Solving (DSA, LeetCode)" />
-            <RoleCard icon="⚡" title="🚀 Deployment & Optimization" />
-          </div>
         </div>
 
-        {/* ===== RIGHT : IMAGE ===== */}
-        <div className="flex justify-center lg:justify-end">
-          <div className="relative group">
+        {/* Timeline */}
+        <div className="space-y-4">
 
-            {/* soft glow */}
-            <div className="absolute -inset-3 rounded-2xl
-              bg-gradient-to-r from-violet-200 to-indigo-200
-              opacity-60 blur-xl" />
+          <EducationCard
+            year="2022 – 2026"
+            title="B.Tech - Computer Science Engineering"
+            place="Shri Ramwaroop Memorial University, Lucknow"
+            score="CGPA: 7.8"
+            details="Relevant Coursework: Data Structures & Algorithms, DBMS, Operating Systems, Computer Networks."
+          />
 
-            {/* image card */}
-            <div
-              className="relative w-64 h-80 sm:w-72 sm:h-[22rem] lg:w-80 lg:h-[26rem]
-              rounded-2xl overflow-hidden border border-gray-200
-              bg-white shadow-xl"
-            >
-              <img
-                src={profileImg}
-                alt="Ashwini Tripathi"
-                className="w-full h-full object-cover
-                group-hover:scale-105 transition-transform duration-700"
-              />
-            </div>
+          <EducationCard
+            year="2020 – 2022"
+            title="Intermediate"
+            place="Sardar Patel Inter College, Kaiserganj Bahraich"
+            score="67.8%"
+            details="Completed higher secondary education with focus on Mathematics and Science."
+          />
 
-          </div>
+          <EducationCard
+            year="2018 – 2020"
+            title="High School"
+            place="Pt. Ram Naresh Inter College, Bahraich"
+            score="78.5%"
+            details="Strong academic foundation with consistent performance."
+          />
+
         </div>
 
       </div>
