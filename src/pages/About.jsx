@@ -54,7 +54,7 @@ export default function About() {
         <div className="space-y-4">
 
           <EducationCard
-            year="2022 – 2026"
+            year="2023 – 2027"
             title="B.Tech - Computer Science Engineering"
             place="Shri Ramwaroop Memorial University, Lucknow"
             score="CGPA: 7.8"
@@ -62,18 +62,18 @@ export default function About() {
           />
 
           <EducationCard
-            year="2020 – 2022"
+            year="2022 – 2023"
             title="Intermediate"
             place="Sardar Patel Inter College, Kaiserganj Bahraich"
-            score="67.8%"
+           
             details="Completed higher secondary education with focus on Mathematics and Science."
           />
 
           <EducationCard
-            year="2018 – 2020"
+            year="2020 – 2021"
             title="High School"
             place="Pt. Ram Naresh Inter College, Bahraich"
-            score="78.5%"
+            
             details="Strong academic foundation with consistent performance."
           />
 

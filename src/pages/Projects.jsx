@@ -42,9 +42,7 @@ function Projects() {
 
         {/* Heading */}
         <div className="text-center mb-20">
-          <p className="text-sm uppercase tracking-widest text-gray-500 mb-3">
-            My Work
-          </p>
+        
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">
             Projects<span className="text-violet-600">.</span>
           </h2>
