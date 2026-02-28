@@ -5,7 +5,7 @@ import { Mail, Download } from "lucide-react";
 import resume from "../assets/AshwiniResume.pdf";
 
 /* ========= CHANGE ONLY THESE ========= */
-const LEETCODE_USERNAME = "HmeWhwAXEd"; 
+const LEETCODE_USERNAME = "Ansh1760"; 
 const GITHUB_USERNAME = "Ansh1760";
 /* ===================================== */
 
