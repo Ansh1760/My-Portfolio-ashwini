@@ -6,14 +6,13 @@ import {
   MessageCircle,
   Twitter,
   Instagram,
-  Globe,
   Code
 } from "lucide-react";
 import profileImg from "../assets/home.jpeg";
 
 function Contact() {
+  const whatsappNumber = "919696901760";
 
-  const whatsappNumber = "919696901760"; // ⚠ remove + sign
   const whatsappMessage = encodeURIComponent(
     "Hi Ashwini, I visited your portfolio and would like to connect regarding an opportunity."
   );
@@ -24,165 +23,140 @@ function Contact() {
   );
 
   return (
-    <section
-      id="contact"
-      className="min-h-screen bg-white px-6 py-24 flex items-center"
-    >
-      <div className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-14 items-center">
+    <section id="contact" className="bg-[#fafafa] py-24 px-6">
+      <div className="max-w-5xl mx-auto">
 
-        {/* LEFT SIDE */}
-        <div className="space-y-6">
+        {/* HEADER */}
+        <div className="mb-20">
+          <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-4">
+            GET IN TOUCH
+          </p>
 
-         
-
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">
+          <h2 className="font-serif text-5xl md:text-6xl font-semibold text-gray-900">
             Let’s Connect<span className="text-violet-600">.</span>
           </h2>
 
-          <p className="text-gray-600 leading-relaxed max-w-md">
-            I’m open to internships, freelance projects, and full-time roles.
-            If you have an opportunity or collaboration idea, feel free to reach out directly.
-          </p>
+          <div className="w-10 h-[2px] bg-gray-300 mt-6"></div>
+        </div>
 
-          {/* Profile Card */}
-          <div className="flex items-center gap-5 bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-            <img
-              src={profileImg}
-              alt="Ashwini"
-              className="w-20 h-20 rounded-xl object-cover"
-            />
-            <div>
-              <p className="font-semibold text-gray-900">Ashwini Tripathi</p>
-              <p className="text-sm text-gray-600">Full Stack Developer</p>
-              <div className="flex items-center gap-2 mt-2 text-gray-600 text-sm">
-                <MapPin className="w-4 h-4 text-violet-600" />
-                Lucknow, India
+        <div className="grid md:grid-cols-2 gap-16">
+
+          {/* LEFT */}
+          <div className="space-y-10">
+
+            {/* Profile Card */}
+            <div className="flex items-center gap-5 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition">
+              <img
+                src={profileImg}
+                alt="Ashwini"
+                className="w-20 h-20 rounded-xl object-cover"
+              />
+              <div>
+                <p className="font-semibold text-gray-900">
+                  Ashwini Tripathi
+                </p>
+                <p className="text-sm text-gray-600">
+                  Full Stack Developer
+                </p>
+                <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
+                  <MapPin className="w-4 h-4 text-violet-500" />
+                  Lucknow, India
+                </div>
               </div>
             </div>
+
+            {/* Buttons */}
+            <div className="grid grid-cols-2 gap-4">
+
+              <a
+                href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 
+                py-3 rounded-xl font-medium text-white 
+                bg-green-500 hover:bg-green-600 transition shadow-sm"
+              >
+                <MessageCircle size={18} />
+                WhatsApp
+              </a>
+
+              <a
+                href={`mailto:tripathiansh1760@gmail.com?subject=${emailSubject}&body=${emailBody}`}
+                className="flex items-center justify-center gap-2 
+                py-3 rounded-xl font-medium text-white 
+                bg-violet-600 hover:bg-violet-700 transition shadow-sm"
+              >
+                <Mail size={18} />
+                Email
+              </a>
+
+            </div>
+
+            {/* Social Grid */}
+            <div className="grid grid-cols-3 gap-4">
+
+              <Social link="https://github.com/Ansh1760" color="bg-black text-white hover:bg-gray-800">
+                <Github />
+              </Social>
+
+              <Social link="https://linkedin.com/in/infoashwini" color="bg-[#0077B5] text-white hover:bg-[#005f8e]">
+                <Linkedin />
+              </Social>
+
+              <Social link="https://twitter.com/AnshTripathi60" color="bg-[#1DA1F2] text-white hover:bg-[#0d8ddb]">
+                <Twitter />
+              </Social>
+
+              <Social link="https://instagram.com/ansh.jsx" color="bg-gradient-to-br from-pink-500 to-yellow-500 text-white">
+                <Instagram />
+              </Social>
+
+              <Social link="https://leetcode.com/u/HmeWhwAXEd/" color="bg-[#f97316] text-white hover:bg-[#ea580c]">
+                <Code />
+              </Social>
+
+            </div>
+
           </div>
 
-          {/* Direct Contact Buttons */}
-          <div className="flex flex-wrap gap-4 pt-4">
+          {/* RIGHT CARD */}
+          <div className="bg-white border border-gray-200 rounded-2xl p-10 shadow-sm hover:shadow-md transition flex flex-col justify-between">
 
-            <a
-              href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2
-              px-5 py-3 rounded-xl font-semibold text-white
-              bg-green-500 hover:bg-green-600
-              shadow-md hover:shadow-lg transition"
-            >
-              <MessageCircle size={18} />
-              WhatsApp Me
-            </a>
+            <div>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+                Ready to build something impactful?
+              </h3>
 
-            <a
-              href={`mailto:tripathiansh1760@gmail.com?subject=${emailSubject}&body=${emailBody}`}
-              className="inline-flex items-center gap-2
-              px-5 py-3 rounded-xl font-semibold text-white
-              bg-violet-600 hover:bg-violet-700
-              shadow-md hover:shadow-lg transition"
-            >
-              <Mail size={18} />
-              Send Email
-            </a>
+              <p className="text-gray-600 leading-relaxed">
+                Whether it's a web application, AI project, or collaboration —
+                I’m excited to work on meaningful ideas and scalable solutions.
+              </p>
+            </div>
 
-          </div>
-
-          {/* 🔥 Extended Social Links */}
-          <div className="flex flex-wrap gap-4 pt-8">
-
-            <a
-              href="https://github.com/Ansh1760"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-icon"
-            >
-              <Github className="icon" />
-            </a>
-
-            <a
-              href="https://linkedin.com/in/infoashwini"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-icon"
-            >
-              <Linkedin className="icon" />
-            </a>
-
-            <a
-              href="https://twitter.com/AnshTripathi60"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-icon"
-            >
-              <Twitter className="icon" />
-            </a>
-
-            <a
-              href="https://instagram.com/ansh.jsx"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-icon"
-            >
-              <Instagram className="icon" />
-            </a>
-
-            <a
-              href="https://leetcode.com/u/HmeWhwAXEd/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-icon"
-            >
-              <Code className="icon" />
-            </a>
-
-    
+            <div className="mt-8 text-sm text-gray-400">
+              Typically responds within 24 hours
+            </div>
 
           </div>
 
         </div>
-
-        {/* RIGHT SIDE */}
-        <div className="bg-gradient-to-br from-violet-600 to-indigo-600 
-          text-white rounded-3xl p-10 shadow-xl">
-
-          <h3 className="text-2xl font-bold mb-4">
-            Ready to build something impactful?
-          </h3>
-
-          <p className="text-violet-100 leading-relaxed mb-6">
-            Whether it's a web application, AI project, or collaboration —
-            I’m excited to work on meaningful ideas and scalable solutions.
-          </p>
-
-          <div className="text-sm text-violet-200">
-            Typically responds within 24 hours.
-          </div>
-        </div>
-
       </div>
-
-      {/* Tailwind Utility Classes */}
-      <style jsx>{`
-        .social-icon {
-          padding: 0.75rem;
-          border-radius: 0.75rem;
-          background: #f3f4f6;
-          transition: all 0.3s ease;
-        }
-        .social-icon:hover {
-          background: #ede9fe;
-          transform: translateY(-3px);
-        }
-        .icon {
-          width: 20px;
-          height: 20px;
-          color: #374151;
-        }
-      `}</style>
     </section>
+  );
+}
+
+/* 🔥 Social Component (UPDATED) */
+function Social({ link, children, color }) {
+  return (
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`flex items-center justify-center 
+      h-14 rounded-xl transition shadow-sm hover:shadow-md ${color}`}
+    >
+      {children}
+    </a>
   );
 }
 

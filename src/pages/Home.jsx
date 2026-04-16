@@ -1,42 +1,21 @@
 import React, { useState, useEffect } from "react";
 import profileImg from "../assets/home.jpeg";
-import ThreeOrb from "../components/ThreeOrb";
 import { Mail, Download } from "lucide-react";
 import resume from "../assets/AshwiniResume.pdf";
 
-/* ========= CHANGE ONLY THESE ========= */
-const LEETCODE_USERNAME = "Ansh1760"; 
+const LEETCODE_USERNAME = "Ansh1760";
 const GITHUB_USERNAME = "Ansh1760";
-/* ===================================== */
 
 function Home() {
   const [leetcodeSolved, setLeetcodeSolved] = useState(null);
   const [githubRepos, setGithubRepos] = useState(null);
-
-  const names = ["Ashwini Tripathi", "अश्विनी त्रिपाठी"];
-  const roles = [
-    "Full Stack Developer",
-    "AI / ML Engineer",
-    "DSA Learner",
-    "Problem Solver",
-  ];
-
   const [currentRole, setCurrentRole] = useState(0);
   const [currentName, setCurrentName] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  /* Email Prefill */
-  const emailSubject = encodeURIComponent(
-    "Opportunity Discussion with Ashwini"
-  );
-  const emailBody = encodeURIComponent(
-    "Hi Ashwini,\n\nI visited your portfolio and would like to discuss a potential opportunity.\n\nBest regards,"
-  );
+  const names = ["Ashwini Tripathi", "अश्विनी त्रिपाठी"];
+  const roles = ["Full Stack Developer", "AI / ML Engineer", "DSA Learner", "Problem Solver"];
 
-  /* Role Animation */
   useEffect(() => {
-    setIsVisible(true);
     const interval = setInterval(() => {
       setCurrentRole((prev) => (prev + 1) % roles.length);
       setCurrentName((prev) => (prev + 1) % names.length);
@@ -44,156 +23,157 @@ function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  /* Fetch LeetCode */
   useEffect(() => {
-    if (!LEETCODE_USERNAME) return;
-
     fetch(`https://leetcode-api-faisalshohag.vercel.app/${LEETCODE_USERNAME}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data?.totalSolved !== undefined) {
-          setLeetcodeSolved(data.totalSolved);
-        }
-      })
-      .catch(() => {});
-  }, []);
-
-  /* Fetch GitHub */
-  useEffect(() => {
-    if (!GITHUB_USERNAME) return;
-
-    fetch(`https://api.github.com/users/${GITHUB_USERNAME}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data?.public_repos !== undefined) {
-          setGithubRepos(data.public_repos);
-        }
-      })
-      .catch(() => {});
-  }, []);
-
-  /* Mouse Parallax */
-  useEffect(() => {
-    if (window.innerWidth < 1024) return;
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
+      .then(res => res.json())
+      .then(data => {
+        if (data?.totalSolved !== undefined) setLeetcodeSolved(data.totalSolved);
       });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${GITHUB_USERNAME}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data?.public_repos !== undefined) setGithubRepos(data.public_repos);
+      });
   }, []);
 
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center overflow-hidden
-      bg-gradient-to-br from-slate-50 via-violet-50/30 to-indigo-50/50
-      px-6 py-20"
-    >
-      <div
-        className={`relative z-10 max-w-7xl mx-auto w-full transition-all duration-1000 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-        }`}
-      >
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-14 items-center">
+    <section className="min-h-screen flex items-center bg-[#fafaf8] px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-[1200px] mx-auto w-full">
+
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16 items-center">
 
           {/* IMAGE */}
-          <div className="flex justify-center lg:justify-start">
-            <div className="relative group">
+          <div className="flex justify-center">
+            <div className="relative w-[220px] h-[300px] md:w-[260px] md:h-[340px] shadow-[0_2px_32px_rgba(0,0,0,0.08)] overflow-hidden">
+              
+              {/* Side line */}
+              <div className="absolute -left-2 top-5 bottom-5 w-[2px] bg-black"></div>
 
-              <div
-                className="absolute -right-80 -top-20 w-72 h-72 opacity-60 hidden xl:block pointer-events-none"
-                style={{
-                  transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
-                }}
-              >
-                <ThreeOrb />
-              </div>
-
-              <div className="relative w-64 h-80 lg:w-80 lg:h-[28rem]
-                overflow-hidden rounded-[2.5rem] shadow-2xl">
-                <img
-                  src={profileImg}
-                  alt="Ashwini"
-                  className="w-full h-full object-cover object-top
-                  lg:group-hover:scale-110 transition-transform duration-700"
-                />
-              </div>
+              <img
+                src={profileImg}
+                alt="Ashwini"
+                className="w-full h-full object-cover transition duration-500 hover:scale-105"
+              />
             </div>
           </div>
 
           {/* TEXT */}
-          <div className="text-center lg:text-left space-y-6">
+          <div className="flex flex-col gap-5 text-center md:text-left">
 
-            <div className="inline-flex px-4 py-2 rounded-full bg-white border border-violet-200 shadow-sm">
-              <span className="text-sm font-semibold text-violet-600">
-                {roles[currentRole]}
-              </span>
-            </div>
+            <span className="text-xs tracking-[0.12em] text-gray-500 uppercase">
+              Portfolio · {new Date().getFullYear()}
+            </span>
 
-            <h1 className="text-4xl lg:text-5xl font-extrabold leading-tight">
-              Hi, I'm{" "}
-              <span
-                key={currentName}
-                className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600"
-              >
-                {names[currentName]}
-              </span>
+            <h1 className="font-serif text-[2.2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-tight text-gray-900">
+              {names[currentName]}
             </h1>
 
-            <p className="text-gray-600 max-w-xl mx-auto lg:mx-0">
-              I build scalable applications and actively practice DSA to
-              strengthen core engineering fundamentals.
+            <span className="bg-black text-white text-xs px-4 py-1 w-fit mx-auto md:mx-0">
+              {roles[currentRole]}
+            </span>
+
+            <div className="w-10 h-[1px] bg-gray-300 mx-auto md:mx-0"></div>
+
+            <p className="text-gray-600 text-sm leading-relaxed md:max-w-[420px] border-l-0 md:border-l md:pl-4">
+              Building scalable, thoughtful applications — and sharpening problem-solving skills through consistent DSA practice on LeetCode.
             </p>
 
-            {/* ===== CLICKABLE STATS ===== */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-6 pt-4">
+{/* STATS */}
+<div className="flex flex-col sm:flex-row items-center justify-center md:ml-[-150px] gap-4 mt-5 w-full">
 
-              {leetcodeSolved !== null && (
-                <a
-                  href={`https://leetcode.com/${LEETCODE_USERNAME}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="stat-card cursor-pointer"
-                >
-                  <p className="stat-number">{leetcodeSolved}+</p>
-                  <p className="stat-label">LeetCode Problems</p>
-                </a>
-              )}
+  {/* LeetCode */}
+  {leetcodeSolved !== null && (
+    <a
+      href={`https://leetcode.com/${LEETCODE_USERNAME}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-full sm:w-auto max-w-[320px]
+      flex items-center gap-4 p-5 rounded-xl 
+      bg-white border border-gray-200 
+      transition-all duration-300 group
+      hover:shadow-lg hover:-translate-y-1 hover:border-orange-300"
+    >
+      {/* ICON */}
+      <div className="flex items-center justify-center w-11 h-11 rounded-lg bg-orange-50">
+        <svg className="w-6 h-6 text-orange-500 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M13.483 0.244291C13.2048 -0.0833342 12.7557 -0.0814232 12.48 0.245205L5.75601 8.07617C5.48025 8.4038 5.48118 8.8529 5.75874 9.17961L10.588 14.8325L9.39401 16.2462L4.59401 10.6233C3.35401 9.15017 3.39401 7.04117 4.67401 5.60817L11.396 -0.221829C12.288 -1.25983 13.712 -1.25983 14.604 -0.221829L21.324 5.60617C22.606 7.03917 22.646 9.14817 21.406 10.6213L16.566 16.2472L15.372 14.8335L20.182 9.17961C20.4598 8.8529 20.4607 8.4038 20.1849 8.07617L13.483 0.244291Z"/>
+        </svg>
+      </div>
 
-              {githubRepos !== null && (
-                <a
-                  href={`https://github.com/${GITHUB_USERNAME}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="stat-card cursor-pointer"
-                >
-                  <p className="stat-number">{githubRepos}+</p>
-                  <p className="stat-label">Public Repositories</p>
-                </a>
-              )}
+      {/* TEXT */}
+      <div className="text-left">
+        <div className="text-xs text-gray-400 font-mono tracking-wider">
+          LEETCODE
+        </div>
 
-            </div>
+        <div className="text-xl font-bold text-gray-900">
+          {leetcodeSolved}
+        </div>
 
-            {/* Buttons */}
-            <div className="flex gap-4 pt-6 justify-center lg:justify-start flex-wrap">
+        <div className="text-xs text-gray-400">
+          Problems Solved
+        </div>
+      </div>
+    </a>
+  )}
+
+  {/* GitHub */}
+  {githubRepos !== null && (
+    <a
+      href={`https://github.com/${GITHUB_USERNAME}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-full sm:w-auto max-w-[320px]
+      flex items-center gap-4 p-5 rounded-xl 
+      bg-white border border-gray-200 
+      transition-all duration-300 group
+      hover:shadow-lg hover:-translate-y-1 hover:border-gray-400"
+    >
+      {/* ICON */}
+      <div className="flex items-center justify-center w-11 h-11 rounded-lg bg-gray-100">
+        <svg className="w-6 h-6 text-gray-700 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 16.42 4.87 20.17 8.84 21.49C9.34 21.58 9.5 21.27 9.5 21C9.5 20.77 9.49 20.14 9.49 19.31C6.73 19.91 6.14 17.97 6.14 17.97C5.68 16.81 5.03 16.5 5.03 16.5C4.12 15.88 5.1 15.9 5.1 15.9C6.1 15.97 6.63 16.93 6.63 16.93C7.5 18.45 8.97 18 9.54 17.76C9.63 17.11 9.89 16.67 10.17 16.42C7.95 16.17 5.62 15.31 5.62 11.5C5.62 10.39 6 9.5 6.65 8.79C6.55 8.54 6.2 7.5 6.75 6.15C6.75 6.15 7.59 5.88 9.5 7.17C10.29 6.95 11.15 6.84 12 6.84C12.85 6.84 13.71 6.95 14.5 7.17C16.41 5.88 17.25 6.15 17.25 6.15C17.8 7.5 17.45 8.54 17.35 8.79C18 9.5 18.38 10.39 18.38 11.5C18.38 15.32 16.04 16.16 13.81 16.41C14.17 16.72 14.5 17.33 14.5 18.26C14.5 19.6 14.49 20.68 14.49 21C14.49 21.27 14.65 21.59 15.16 21.49C19.13 20.17 22 16.42 22 12C22 6.48 17.52 2 12 2Z"/>
+        </svg>
+      </div>
+
+      {/* TEXT */}
+      <div className="text-left">
+        <div className="text-xs text-gray-400 font-mono tracking-wider">
+          GITHUB
+        </div>
+
+        <div className="text-xl font-bold text-gray-900">
+          {githubRepos}
+        </div>
+
+        <div className="text-xs text-gray-400">
+          Repositories
+        </div>
+      </div>
+    </a>
+  )}
+
+</div>
+            {/* BUTTONS */}
+            <div className="flex flex-col sm:flex-row gap-3 mt-3">
 
               <a
-                href={`mailto:tripathiansh1760@gmail.com?subject=${emailSubject}&body=${emailBody}`}
-                className="btn-outline"
+                href="mailto:tripathiansh1760@gmail.com"
+                className="flex items-center justify-center gap-2 border border-gray-300 px-5 py-2 text-sm hover:border-gray-600 transition"
               >
-                <Mail size={16} />
+                <Mail size={14} />
                 Hire Me
               </a>
 
               <a
                 href={resume}
                 download
-                className="btn-primary"
+                className="flex items-center justify-center gap-2 bg-black text-white px-5 py-2 text-sm hover:bg-gray-800 transition"
               >
-                <Download size={16} />
+                <Download size={14} />
                 Resume
               </a>
 
@@ -202,58 +182,6 @@ function Home() {
           </div>
         </div>
       </div>
-
-      {/* Styles */}
-      <style jsx>{`
-        .stat-card {
-          background: white;
-          border: 1px solid #e5e7eb;
-          padding: 1rem 1.5rem;
-          border-radius: 1rem;
-          text-align: center;
-          transition: 0.3s;
-        }
-        .stat-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 12px 25px rgba(0,0,0,0.08);
-          border-color: #7c3aed;
-        }
-        .stat-number {
-          font-size: 1.75rem;
-          font-weight: bold;
-          color: #7c3aed;
-        }
-        .stat-label {
-          font-size: 0.85rem;
-          color: #6b7280;
-        }
-        .btn-outline {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          border-radius: 0.5rem;
-          border: 1px solid #d1d5db;
-          transition: 0.3s;
-        }
-        .btn-outline:hover {
-          border-color: #7c3aed;
-          color: #7c3aed;
-        }
-        .btn-primary {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          border-radius: 0.5rem;
-          background: #7c3aed;
-          color: white;
-          transition: 0.3s;
-        }
-        .btn-primary:hover {
-          background: #6d28d9;
-        }
-      `}</style>
     </section>
   );
 }

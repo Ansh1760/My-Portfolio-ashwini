@@ -1,125 +1,222 @@
+import React, { useEffect, useRef } from "react";
 import {
-  FaReact,
-  FaNodeJs,
-  FaHtml5,
-  FaCss3Alt,
-  FaGitAlt,
-  FaGithub,
-  FaFigma,
-  FaDocker,
+  FaReact, FaNodeJs, FaHtml5, FaCss3Alt,
+  FaGitAlt, FaGithub, FaFigma, FaDocker,
 } from "react-icons/fa";
-
 import {
-  SiJavascript,
-  SiTailwindcss,
-  SiExpress,
-  SiMongodb,
-  SiVite,
-  SiNetlify,
-  SiVercel,
-  SiRailway,
-  SiRender,
-  SiFramer,
-  SiMysql,
-  SiPostgresql,
+  SiJavascript, SiTailwindcss, SiExpress, SiMongodb,
+  SiVite, SiNetlify, SiVercel, SiRailway, SiRender,
+  SiFramer, SiMysql, SiPostgresql,
 } from "react-icons/si";
-
 import { Code2, Server, Wrench } from "lucide-react";
 
-const SkillItem = ({ icon, label, color }) => (
-  <div
-    className="flex items-center gap-4 rounded-2xl px-4 py-3
-    bg-white shadow-sm border border-gray-200
-    hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+const categories = [
+  {
+    label: "Frontend",
+    type: "frontend",
+    Icon: Code2,
+    skills: [
+      { icon: <FaReact />, label: "React" },
+      { icon: <SiJavascript />, label: "JavaScript" },
+      { icon: <SiTailwindcss />, label: "Tailwind CSS" },
+      { icon: <SiFramer />, label: "Framer Motion" },
+      { icon: <FaHtml5 />, label: "HTML5" },
+      { icon: <FaCss3Alt />, label: "CSS3" },
+      { icon: <SiVite />, label: "Vite" },
+    ],
+  },
+  {
+    label: "Backend",
+    type: "backend",
+    Icon: Server,
+    skills: [
+      { icon: <FaNodeJs />, label: "Node.js" },
+      { icon: <SiExpress />, label: "Express.js" },
+      { icon: <SiMongodb />, label: "MongoDB" },
+      { icon: <SiMysql />, label: "MySQL" },
+      { icon: <SiPostgresql />, label: "PostgreSQL" },
+      { icon: <span style={{ fontWeight: 600, fontSize: "0.75rem" }}>API</span>, label: "REST APIs" },
+    ],
+  },
+  {
+    label: "Tools & Deploy",
+    type: "tools",
+    Icon: Wrench,
+    skills: [
+      { icon: <FaGitAlt />, label: "Git" },
+      { icon: <FaGithub />, label: "GitHub" },
+      { icon: <SiVercel />, label: "Vercel" },
+      { icon: <SiNetlify />, label: "Netlify" },
+      { icon: <SiRailway />, label: "Railway" },
+      { icon: <SiRender />, label: "Render" },
+      { icon: <FaFigma />, label: "Figma" },
+      { icon: <FaDocker />, label: "Docker" },
+    ],
+  },
+];
+
+const SkillPill = ({ icon, label }) => (
+  <div style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    padding: "7px 12px",
+    background: "#fff",
+    border: "1px solid #e8e8e4",
+    borderRadius: "3px",
+    fontSize: "0.8rem",
+    color: "#333",
+    fontFamily: "'DM Sans', sans-serif",
+    fontWeight: 400,
+    transition: "border-color 0.2s, box-shadow 0.2s",
+    cursor: "default",
+  }}
+    onMouseEnter={e => {
+      e.currentTarget.style.borderColor = "#bbb";
+      e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.05)";
+    }}
+    onMouseLeave={e => {
+      e.currentTarget.style.borderColor = "#e8e8e4";
+      e.currentTarget.style.boxShadow = "none";
+    }}
   >
-    <span className={`text-2xl ${color}`}>{icon}</span>
-    <span className="text-sm font-semibold text-gray-800">{label}</span>
+    <span style={{ fontSize: "1rem", display: "flex", alignItems: "center", color: "#555" }}>
+      {icon}
+    </span>
+    {label}
   </div>
 );
 
+const CategoryColumn = ({ label, type, Icon, skills, index }) => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        opacity: 0,
+        transform: "translateY(24px)",
+        transition: `opacity 0.6s ease ${index * 0.15}s, transform 0.6s ease ${index * 0.15}s`,
+        display: "flex",
+        flexDirection: "column",
+        gap: "1.25rem",
+      }}
+    >
+      {/* Column header */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "10px",
+        paddingBottom: "1rem",
+        borderBottom: "1px solid #e8e8e4",
+      }}>
+        <div style={{
+          width: "32px", height: "32px",
+          background: "#f5f5f2",
+          borderRadius: "3px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0,
+        }}>
+          <Icon size={15} color="#555" />
+        </div>
+        <h3 style={{
+          fontFamily: "'DM Serif Display', serif",
+          fontSize: "1.1rem",
+          color: "#111",
+          fontWeight: 400,
+          margin: 0,
+        }}>
+          {label}
+        </h3>
+      </div>
+
+      {/* Skills grid */}
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: "8px",
+      }}>
+        {skills.map((s, i) => (
+          <SkillPill key={i} icon={s.icon} label={s.label} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 function Skills() {
   return (
-    <section id="skills" className="min-h-screen bg-white px-6 py-20">
-      <div className="max-w-7xl mx-auto">
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap');
+      `}</style>
 
-        {/* Heading */}
-        <div className="mb-14">
-          <p className="text-sm uppercase tracking-widest text-gray-500 mb-2">
-            Skills
-          </p>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">
-            Full Stack Expertise<span className="text-violet-600">.</span>
-          </h2>
-        </div>
+      <section
+        id="skills"
+        style={{
+          background: "#fafaf8",
+          padding: "5rem 2rem",
+          fontFamily: "'DM Sans', sans-serif",
+        }}
+      >
+        <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-          {/* FRONTEND */}
-          <div className="rounded-3xl bg-gradient-to-br from-blue-50 to-cyan-50 p-8 shadow-md">
-            <div className="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center mb-5">
-              <Code2 className="w-7 h-7 text-blue-600" />
-            </div>
-
-            <h3 className="text-2xl font-bold text-blue-600 mb-2">
-              Frontend
-            </h3>
-
-            <div className="grid gap-3">
-              <SkillItem icon={<FaReact />} label="React" color="text-sky-500" />
-              <SkillItem icon={<SiJavascript />} label="JavaScript" color="text-yellow-500" />
-              <SkillItem icon={<SiFramer />} label="Framer Motion" color="text-purple-600" />
-              <SkillItem icon={<SiTailwindcss />} label="Tailwind CSS" color="text-cyan-500" />
-              <SkillItem icon={<FaHtml5 />} label="HTML5" color="text-orange-500" />
-              <SkillItem icon={<FaCss3Alt />} label="CSS3" color="text-blue-500" />
-              <SkillItem icon={<SiVite />} label="Vite" color="text-purple-500" />
-            </div>
+          {/* Heading */}
+          <div style={{ marginBottom: "3.5rem" }}>
+            <p style={{
+              fontSize: "0.72rem",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "#aaa",
+              marginBottom: "0.5rem",
+              fontWeight: 400,
+            }}>
+              Toolkit
+            </p>
+            <h2 style={{
+              fontFamily: "'DM Serif Display', serif",
+              fontSize: "clamp(2rem, 5vw, 3rem)",
+              color: "#111",
+              fontWeight: 400,
+              margin: "0 0 0.75rem",
+              lineHeight: 1.1,
+            }}>
+              Full Stack Expertise
+            </h2>
+            <div style={{ width: "40px", height: "1px", background: "#ccc" }} />
           </div>
 
-          {/* BACKEND */}
-          <div className="rounded-3xl bg-gradient-to-br from-violet-50 to-purple-50 p-8 shadow-md">
-            <div className="w-14 h-14 rounded-2xl bg-violet-100 flex items-center justify-center mb-5">
-              <Server className="w-7 h-7 text-violet-600" />
-            </div>
-
-            <h3 className="text-2xl font-bold text-violet-600 mb-2">
-              Backend
-            </h3>
-
-            <div className="grid gap-3">
-              <SkillItem icon={<FaNodeJs />} label="Node.js" color="text-green-600" />
-              <SkillItem icon={<SiExpress />} label="Express.js" color="text-gray-700" />
-              <SkillItem icon={<SiMongodb />} label="MongoDB" color="text-green-500" />
-              <SkillItem icon={<SiMysql />} label="MySQL" color="text-blue-600" />
-              <SkillItem icon={<SiPostgresql />} label="PostgreSQL" color="text-indigo-600" />
-              <SkillItem icon={<span className="font-bold">API</span>} label="REST APIs" color="text-gray-700" />
-            </div>
-          </div>
-
-          {/* TOOLS & DEPLOYMENT */}
-          <div className="rounded-3xl bg-gradient-to-br from-orange-50 to-amber-50 p-8 shadow-md">
-            <div className="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center mb-5">
-              <Wrench className="w-7 h-7 text-orange-500" />
-            </div>
-
-            <h3 className="text-2xl font-bold text-orange-500 mb-2">
-              Tools & Deployment
-            </h3>
-
-            <div className="grid gap-3">
-              <SkillItem icon={<FaGitAlt />} label="Git" color="text-orange-600" />
-              <SkillItem icon={<FaGithub />} label="GitHub" color="text-gray-800" />
-              <SkillItem icon={<SiNetlify />} label="Netlify" color="text-teal-500" />
-              <SkillItem icon={<SiVercel />} label="Vercel" color="text-black" />
-              <SkillItem icon={<SiRailway />} label="Railway" color="text-purple-600" />
-              <SkillItem icon={<SiRender />} label="Render" color="text-blue-600" />
-              <SkillItem icon={<FaFigma />} label="Figma" color="text-pink-500" />
-              <SkillItem icon={<FaDocker />} label="Docker (Basics)" color="text-sky-600" />
-            </div>
+          {/* Three columns */}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: "3rem",
+          }}>
+            {categories.map((cat, i) => (
+              <CategoryColumn key={i} {...cat} index={i} />
+            ))}
           </div>
 
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 

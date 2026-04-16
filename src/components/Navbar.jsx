@@ -6,9 +6,7 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -25,39 +23,37 @@ function Navbar() {
   const handleNavClick = (e, href) => {
     e.preventDefault();
     setIsMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) element.scrollIntoView({ behavior: "smooth" });
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <>
       <nav
         className={`fixed w-full z-50 transition-all duration-500 ${
-          scrolled
-            ? "py-3"
-            : "py-6"
+          scrolled ? "py-3" : "py-5"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+        {/* 🔥 FIXED WIDTH (IMPORTANT) */}
+        <div className="max-w-[1400px] mx-auto px-4 md:px-6">
+
           {/* GLASS CONTAINER */}
           <div
             className={`flex items-center justify-between px-6 rounded-2xl transition-all duration-500 ${
               scrolled
-                ? "bg-white/40 backdrop-blur-2xl shadow-lg border border-white/30"
-                : "bg-white/20 backdrop-blur-xl border border-white/20"
+                ? "bg-white/60 backdrop-blur-xl shadow-md border border-gray-200"
+                : "bg-white/30 backdrop-blur-lg border border-white/30"
             }`}
           >
-            
+
             {/* LOGO */}
             <a
               href="#home"
               onClick={(e) => handleNavClick(e, "#home")}
-              className="select-none py-3"
+              className="py-3"
             >
-              <span className="text-2xl sm:text-3xl font-extrabold tracking-tight
-              bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600
-              bg-clip-text text-transparent">
+              <span className="text-2xl sm:text-3xl font-extrabold tracking-tight 
+              bg-black bg-clip-text text-transparent">
                 Ashwini
               </span>
             </a>
@@ -69,15 +65,14 @@ function Navbar() {
                   key={item.label}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className="relative text-gray-800 font-medium
-                  hover:text-violet-600 transition-colors duration-300"
+                  className="relative group text-gray-800 font-medium transition"
                 >
-                  {item.label}
-                  <span
-                    className="absolute left-0 -bottom-1 h-[2px] w-0
-                    bg-gradient-to-r from-violet-600 to-indigo-600
-                    transition-all duration-300 group-hover:w-full"
-                  />
+                  <span className="group-hover:text-violet-600 transition">
+                    {item.label}
+                  </span>
+
+                  {/* 🔥 FIXED UNDERLINE */}
+                  <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gradient-to-r from-violet-600 to-indigo-600 transition-all duration-300 group-hover:w-full"></span>
                 </a>
               ))}
             </div>
@@ -85,9 +80,7 @@ function Navbar() {
             {/* MOBILE BUTTON */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-xl
-              bg-white/30 backdrop-blur-xl border border-white/40
-              hover:bg-white/50 transition"
+              className="md:hidden p-2 rounded-xl bg-white/40 backdrop-blur-lg border border-gray-200 hover:bg-white/70 transition"
             >
               {isMenuOpen ? (
                 <X className="w-6 h-6 text-gray-800" />
@@ -100,24 +93,25 @@ function Navbar() {
 
         {/* MOBILE MENU */}
         <div
-          className={`md:hidden absolute top-full left-0 right-0 px-6 mt-3 transition-all duration-300 ${
+          className={`md:hidden absolute top-full left-0 right-0 px-4 mt-3 transition-all duration-300 ${
             isMenuOpen
               ? "opacity-100 translate-y-0"
               : "opacity-0 -translate-y-4 pointer-events-none"
           }`}
         >
-          <div className="rounded-2xl bg-white/50 backdrop-blur-2xl border border-white/30 shadow-lg py-4">
+          <div className="max-w-[1400px] mx-auto rounded-2xl bg-white/80 backdrop-blur-xl border border-gray-200 shadow-lg py-4">
+
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="block px-6 py-3 text-gray-800 font-medium
-                hover:bg-violet-50 hover:text-violet-600 transition"
+                className="block px-6 py-3 text-gray-800 font-medium hover:bg-violet-50 hover:text-violet-600 transition"
               >
                 {item.label}
               </a>
             ))}
+
           </div>
         </div>
       </nav>
