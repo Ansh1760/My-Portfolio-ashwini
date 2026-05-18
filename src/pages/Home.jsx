@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import profileImg from "../assets/home.jpeg";
 import { Mail, Download } from "lucide-react";
-import resume from "../assets/AshwiniResume.pdf";
+
+import resume from "../assets/My_Resume_2_0 (2).pdf"
 
 const LEETCODE_USERNAME = "Ansh1760";
 const GITHUB_USERNAME = "Ansh1760";
