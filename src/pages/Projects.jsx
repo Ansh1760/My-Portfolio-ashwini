@@ -10,6 +10,7 @@ import "swiper/css/pagination";
 import byteboundImg from "../assets/Byteboundbanner.png";
 import project2 from "../assets/bgremove.png";
 import project3 from "../assets/project3.png";
+import project4 from "../assets/project4.png";
 
 const projects = [
   {
@@ -36,6 +37,14 @@ const projects = [
     live: "https://mytaskansh.netlify.app/",
     image: project3,
   },
+ {
+  title: "SkillGap AI",
+  tag: "AI Career Platform",
+  description:
+    "AI-powered career platform featuring ATS resume analysis, interview preparation, and skill certification system with personalized insights and progress tracking.",
+  live: "https://skills-gap-ai.vercel.app/",
+  image: project4,
+},
 ];
 
 const ProjectCard = ({ title, tag, description, live, image }) => (
