@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import profileImg from "../assets/home.jpeg";
-import { Mail, Download } from "lucide-react";
+import { Mail, Download, ArrowUpRight } from "lucide-react";
 
-import resume from "../assets/My_Resume_2_0 (2).pdf"
+import resume from "../assets/Ashwini_tripathi_resume.pdf";
 
 const LEETCODE_USERNAME = "Ansh1760";
 const GITHUB_USERNAME = "Ansh1760";
@@ -26,144 +26,172 @@ function Home() {
 
   useEffect(() => {
     fetch(`https://leetcode-api-faisalshohag.vercel.app/${LEETCODE_USERNAME}`)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data?.totalSolved !== undefined) setLeetcodeSolved(data.totalSolved);
       });
   }, []);
 
   useEffect(() => {
     fetch(`https://api.github.com/users/${GITHUB_USERNAME}`)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data?.public_repos !== undefined) setGithubRepos(data.public_repos);
       });
   }, []);
 
   return (
-    <section className="min-h-screen flex items-center bg-[#fafaf8] px-4 sm:px-6 lg:px-8 py-16">
-      <div className="max-w-[1200px] mx-auto w-full">
+    <section
+      id="home"
+      className="min-h-screen flex items-center bg-[#0B0F19] px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-24 md:pt-16 scroll-mt-20 relative overflow-hidden"
+    >
+      {/* fonts + local animations */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap');
 
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16 items-center">
+        .font-display { font-family: 'Fraunces', serif; }
+        .font-mono-ui { font-family: 'IBM Plex Mono', monospace; }
+        .font-body { font-family: 'Inter', sans-serif; }
 
-          {/* IMAGE */}
-          <div className="flex justify-center">
-            <div className="relative w-[220px] h-[300px] md:w-[260px] md:h-[340px] shadow-[0_2px_32px_rgba(0,0,0,0.08)] overflow-hidden">
-              
-              {/* Side line */}
-              <div className="absolute -left-2 top-5 bottom-5 w-[2px] bg-black"></div>
+        @keyframes blink-caret {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
+        .caret {
+          display: inline-block;
+          width: 2px;
+          margin-left: 2px;
+          background: #D4A24C;
+          animation: blink-caret 1s step-end infinite;
+        }
+        @keyframes rise-in {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .rise-in { animation: rise-in 0.6s ease-out both; }
 
-              <img
-                src={profileImg}
-                alt="Ashwini"
-                className="w-full h-full object-cover transition duration-500 hover:scale-105"
-              />
+        @media (prefers-reduced-motion: reduce) {
+          .caret { animation: none; opacity: 1; }
+          .rise-in { animation: none; }
+        }
+      `}</style>
+
+      {/* faint grid texture, subject-appropriate (code editor gutter feel) */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "linear-gradient(#ECEAE3 1px, transparent 1px), linear-gradient(90deg, #ECEAE3 1px, transparent 1px)",
+          backgroundSize: "42px 42px",
+        }}
+      />
+
+      <div className="max-w-[1200px] mx-auto w-full relative">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-10 md:gap-16 items-center">
+          {/* IMAGE — bracket-framed, like a code block */}
+          <div className="flex justify-center rise-in">
+            <div className="relative w-[220px] h-[300px] md:w-[260px] md:h-[340px]">
+              <span className="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-[#D4A24C]" />
+              <span className="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-[#D4A24C]" />
+              <div className="relative w-full h-full overflow-hidden border border-[#232937]">
+                <img
+                  src={profileImg}
+                  alt="Ashwini"
+                  className="w-full h-full object-cover grayscale-[15%] transition duration-500 hover:grayscale-0 hover:scale-105"
+                />
+              </div>
             </div>
           </div>
 
           {/* TEXT */}
           <div className="flex flex-col gap-5 text-center md:text-left">
-
-            <span className="text-xs tracking-[0.12em] text-gray-500 uppercase">
-              Portfolio · {new Date().getFullYear()}
+            <span className="font-mono-ui text-xs tracking-[0.1em] text-[#6EC9B8] uppercase rise-in">
+              {`> portfolio / ${new Date().getFullYear()}`}
             </span>
 
-            <h1 className="font-serif text-[2.2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-tight text-gray-900">
+            <h1 className="font-display text-[2.2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-tight text-[#ECEAE3] rise-in">
               {names[currentName]}
+              <span className="caret h-[0.85em] align-middle" />
             </h1>
 
-            <span className="bg-black text-white text-xs px-4 py-1 w-fit mx-auto md:mx-0">
-              {roles[currentRole]}
-            </span>
+            <div className="font-mono-ui text-sm text-[#8A8F9E] rise-in">
+              <span className="text-[#D4A24C]">role</span>
+              <span className="text-[#8A8F9E]">: </span>
+              <span className="text-[#6EC9B8]">"{roles[currentRole]}"</span>
+            </div>
 
-            <div className="w-10 h-[1px] bg-gray-300 mx-auto md:mx-0"></div>
+            <div className="w-10 h-[1px] bg-[#232937] mx-auto md:mx-0" />
 
-            <p className="text-gray-600 text-sm leading-relaxed md:max-w-[420px] border-l-0 md:border-l md:pl-4">
-              Building scalable, thoughtful applications — and sharpening problem-solving skills through consistent DSA practice on LeetCode.
+            <p className="font-body text-[#8A8F9E] text-sm leading-relaxed md:max-w-[440px] rise-in">
+              Building scalable, thoughtful applications — and sharpening problem-solving
+              skills through consistent DSA practice on LeetCode.
             </p>
 
-{/* STATS */}
-<div className="flex flex-col sm:flex-row items-center justify-center md:ml-[-150px] gap-4 mt-5 w-full">
+            {/* SIGNATURE: terminal-style live stats panel */}
+            <div className="mx-auto md:mx-0 w-full max-w-[420px] rise-in">
+              <div className="border border-[#232937] bg-[#131826] text-left overflow-hidden">
+                {/* title bar */}
+                <div className="flex items-center gap-1.5 px-3 py-2 border-b border-[#232937]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#E06C75]/70" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#D4A24C]/70" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#6EC9B8]/70" />
+                  <span className="font-mono-ui text-[11px] text-[#8A8F9E] ml-2">
+                    stats.sh
+                  </span>
+                </div>
 
-  {/* LeetCode */}
-  {leetcodeSolved !== null && (
-    <a
-      href={`https://leetcode.com/${LEETCODE_USERNAME}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-full sm:w-auto max-w-[320px]
-      flex items-center gap-4 p-5 rounded-xl 
-      bg-white border border-gray-200 
-      transition-all duration-300 group
-      hover:shadow-lg hover:-translate-y-1 hover:border-orange-300"
-    >
-      {/* ICON */}
-      <div className="flex items-center justify-center w-11 h-11 rounded-lg bg-orange-50">
-        <svg className="w-6 h-6 text-orange-500 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M13.483 0.244291C13.2048 -0.0833342 12.7557 -0.0814232 12.48 0.245205L5.75601 8.07617C5.48025 8.4038 5.48118 8.8529 5.75874 9.17961L10.588 14.8325L9.39401 16.2462L4.59401 10.6233C3.35401 9.15017 3.39401 7.04117 4.67401 5.60817L11.396 -0.221829C12.288 -1.25983 13.712 -1.25983 14.604 -0.221829L21.324 5.60617C22.606 7.03917 22.646 9.14817 21.406 10.6213L16.566 16.2472L15.372 14.8335L20.182 9.17961C20.4598 8.8529 20.4607 8.4038 20.1849 8.07617L13.483 0.244291Z"/>
-        </svg>
-      </div>
+                {/* body */}
+                <div className="font-mono-ui text-[13px] px-4 py-3 flex flex-col gap-2.5">
+                  <a
+                    href={`https://leetcode.com/${LEETCODE_USERNAME}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between text-[#8A8F9E] hover:text-[#ECEAE3] transition-colors"
+                  >
+                    <span>
+                      <span className="text-[#D4A24C]">$</span> curl leetcode/solved
+                    </span>
+                    <span className="flex items-center gap-1 text-[#6EC9B8]">
+                      {leetcodeSolved !== null ? leetcodeSolved : "…"}
+                      <ArrowUpRight
+                        size={12}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      />
+                    </span>
+                  </a>
 
-      {/* TEXT */}
-      <div className="text-left">
-        <div className="text-xs text-gray-400 font-mono tracking-wider">
-          LEETCODE
-        </div>
+                  <a
+                    href={`https://github.com/${GITHUB_USERNAME}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between text-[#8A8F9E] hover:text-[#ECEAE3] transition-colors"
+                  >
+                    <span>
+                      <span className="text-[#D4A24C]">$</span> curl github/repos
+                    </span>
+                    <span className="flex items-center gap-1 text-[#6EC9B8]">
+                      {githubRepos !== null ? githubRepos : "…"}
+                      <ArrowUpRight
+                        size={12}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      />
+                    </span>
+                  </a>
 
-        <div className="text-xl font-bold text-gray-900">
-          {leetcodeSolved}
-        </div>
+                  <div className="flex items-center text-[#8A8F9E]">
+                    <span className="text-[#D4A24C]">$</span>
+                    <span className="ml-2">_</span>
+                    <span className="caret h-[1em] align-middle" />
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <div className="text-xs text-gray-400">
-          Problems Solved
-        </div>
-      </div>
-    </a>
-  )}
-
-  {/* GitHub */}
-  {githubRepos !== null && (
-    <a
-      href={`https://github.com/${GITHUB_USERNAME}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-full sm:w-auto max-w-[320px]
-      flex items-center gap-4 p-5 rounded-xl 
-      bg-white border border-gray-200 
-      transition-all duration-300 group
-      hover:shadow-lg hover:-translate-y-1 hover:border-gray-400"
-    >
-      {/* ICON */}
-      <div className="flex items-center justify-center w-11 h-11 rounded-lg bg-gray-100">
-        <svg className="w-6 h-6 text-gray-700 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C6.48 2 2 6.48 2 12C2 16.42 4.87 20.17 8.84 21.49C9.34 21.58 9.5 21.27 9.5 21C9.5 20.77 9.49 20.14 9.49 19.31C6.73 19.91 6.14 17.97 6.14 17.97C5.68 16.81 5.03 16.5 5.03 16.5C4.12 15.88 5.1 15.9 5.1 15.9C6.1 15.97 6.63 16.93 6.63 16.93C7.5 18.45 8.97 18 9.54 17.76C9.63 17.11 9.89 16.67 10.17 16.42C7.95 16.17 5.62 15.31 5.62 11.5C5.62 10.39 6 9.5 6.65 8.79C6.55 8.54 6.2 7.5 6.75 6.15C6.75 6.15 7.59 5.88 9.5 7.17C10.29 6.95 11.15 6.84 12 6.84C12.85 6.84 13.71 6.95 14.5 7.17C16.41 5.88 17.25 6.15 17.25 6.15C17.8 7.5 17.45 8.54 17.35 8.79C18 9.5 18.38 10.39 18.38 11.5C18.38 15.32 16.04 16.16 13.81 16.41C14.17 16.72 14.5 17.33 14.5 18.26C14.5 19.6 14.49 20.68 14.49 21C14.49 21.27 14.65 21.59 15.16 21.49C19.13 20.17 22 16.42 22 12C22 6.48 17.52 2 12 2Z"/>
-        </svg>
-      </div>
-
-      {/* TEXT */}
-      <div className="text-left">
-        <div className="text-xs text-gray-400 font-mono tracking-wider">
-          GITHUB
-        </div>
-
-        <div className="text-xl font-bold text-gray-900">
-          {githubRepos}
-        </div>
-
-        <div className="text-xs text-gray-400">
-          Repositories
-        </div>
-      </div>
-    </a>
-  )}
-
-</div>
             {/* BUTTONS */}
-            <div className="flex flex-col sm:flex-row gap-3 mt-3">
-
+            <div className="flex flex-col sm:flex-row gap-3 mt-1 rise-in">
               <a
                 href="mailto:tripathiansh1760@gmail.com"
-                className="flex items-center justify-center gap-2 border border-gray-300 px-5 py-2 text-sm hover:border-gray-600 transition"
+                className="font-mono-ui flex items-center justify-center gap-2 border border-[#232937] text-[#ECEAE3] px-5 py-2.5 text-sm hover:border-[#6EC9B8] hover:text-[#6EC9B8] transition-colors"
               >
                 <Mail size={14} />
                 Hire Me
@@ -172,14 +200,12 @@ function Home() {
               <a
                 href={resume}
                 download
-                className="flex items-center justify-center gap-2 bg-black text-white px-5 py-2 text-sm hover:bg-gray-800 transition"
+                className="font-mono-ui flex items-center justify-center gap-2 bg-[#D4A24C] text-[#0B0F19] px-5 py-2.5 text-sm font-medium hover:bg-[#e0b264] transition-colors"
               >
                 <Download size={14} />
                 Resume
               </a>
-
             </div>
-
           </div>
         </div>
       </div>

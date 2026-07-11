@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { ExternalLink, ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowUpRight, ArrowLeft, ArrowRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 
@@ -11,6 +11,7 @@ import byteboundImg from "../assets/Byteboundbanner.png";
 import project2 from "../assets/bgremove.png";
 import project3 from "../assets/project3.png";
 import project4 from "../assets/project4.png";
+import project5 from "../assets/project5.png";
 
 const projects = [
   {
@@ -37,90 +38,59 @@ const projects = [
     live: "https://mytaskansh.netlify.app/",
     image: project3,
   },
- {
-  title: "SkillGap AI",
-  tag: "AI Career Platform",
-  description:
-    "AI-powered career platform featuring ATS resume analysis, interview preparation, and skill certification system with personalized insights and progress tracking.",
-  live: "https://skills-gap-ai.vercel.app/",
-  image: project4,
-},
+  {
+    title: "SkillGap AI",
+    tag: "AI Career Platform",
+    description:
+      "AI-powered career platform featuring ATS resume analysis, interview preparation, and skill certification system with personalized insights and progress tracking.",
+    live: "https://skills-gap-ai.vercel.app/",
+    image: project4,
+  },
+  {
+    title: "DevFolio",
+    tag: "Developer Portfolio & Progress Tracker",
+    description:
+      "A full-stack platform that helps developers showcase projects, track coding progress, analyze resumes with AI, prepare for interviews, and earn skill certifications.",
+    live: "https://dev-folio-progress-tracker.vercel.app/",
+    image: project5,
+  },
 ];
 
+const domainFromUrl = (url) => {
+  try {
+    return new URL(url).hostname.replace("www.", "");
+  } catch {
+    return url;
+  }
+};
+
 const ProjectCard = ({ title, tag, description, live, image }) => (
-  <div style={{
-    background: "#fff",
-    border: "1px solid #e8e8e4",
-    borderRadius: "4px",
-    overflow: "hidden",
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
-    transition: "box-shadow 0.2s, border-color 0.2s",
-  }}
-    onMouseEnter={e => {
-      e.currentTarget.style.boxShadow = "0 8px 32px rgba(0,0,0,0.07)";
-      e.currentTarget.style.borderColor = "#bbb";
-    }}
-    onMouseLeave={e => {
-      e.currentTarget.style.boxShadow = "none";
-      e.currentTarget.style.borderColor = "#e8e8e4";
-    }}
-  >
+  <div className="group flex flex-col h-full border border-[#232937] bg-[#131826] overflow-hidden transition-colors duration-200 hover:border-[#6EC9B8]/50">
     {/* Image */}
-    <div style={{ height: "200px", overflow: "hidden", background: "#f5f5f2" }}>
+    <div className="relative h-[190px] overflow-hidden bg-[#0B0F19] border-b border-[#232937]">
       <img
         src={image}
         alt={title}
-        style={{
-          width: "100%", height: "100%", objectFit: "cover",
-          transition: "transform 0.5s ease",
-          display: "block",
-        }}
-        onMouseEnter={e => e.currentTarget.style.transform = "scale(1.04)"}
-        onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
+      <div className="absolute top-2.5 left-2.5 font-mono-ui text-[10px] flex items-center gap-1.5 bg-[#0B0F19]/85 border border-[#232937] px-2 py-1">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#6EC9B8]" />
+        <span className="text-[#6EC9B8]">live</span>
+      </div>
     </div>
 
     {/* Content */}
-    <div style={{ padding: "1.25rem 1.4rem", display: "flex", flexDirection: "column", flex: 1 }}>
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "0.75rem", marginBottom: "0.6rem" }}>
-        <h3 style={{
-          fontFamily: "'DM Serif Display', serif",
-          fontSize: "1.1rem",
-          color: "#111",
-          fontWeight: 400,
-          margin: 0,
-          lineHeight: 1.3,
-        }}>
+    <div className="flex flex-col flex-1 p-5">
+      <div className="flex items-start justify-between gap-3 mb-2">
+        <h3 className="font-display text-[#ECEAE3] text-[1.05rem] font-normal leading-snug">
           {title}
         </h3>
-        <span style={{
-          fontSize: "0.68rem",
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-          color: "#888",
-          fontFamily: "'DM Sans', sans-serif",
-          fontWeight: 400,
-          background: "#f5f5f2",
-          padding: "3px 10px",
-          borderRadius: "2px",
-          whiteSpace: "nowrap",
-          flexShrink: 0,
-        }}>
+        <span className="font-mono-ui shrink-0 text-[10px] tracking-[0.06em] uppercase text-[#D4A24C] border border-[#D4A24C]/40 px-2 py-[3px] whitespace-nowrap">
           {tag}
         </span>
       </div>
 
-      <p style={{
-        fontSize: "0.82rem",
-        color: "#888",
-        fontFamily: "'DM Sans', sans-serif",
-        fontWeight: 300,
-        lineHeight: 1.7,
-        margin: "0 0 1.25rem",
-        flex: 1,
-      }}>
+      <p className="font-mono-ui text-[12px] text-[#8A8F9E] leading-relaxed mb-4 flex-1">
         {description}
       </p>
 
@@ -128,26 +98,10 @@ const ProjectCard = ({ title, tag, description, live, image }) => (
         href={live}
         target="_blank"
         rel="noopener noreferrer"
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "6px",
-          fontSize: "0.78rem",
-          fontFamily: "'DM Sans', sans-serif",
-          fontWeight: 400,
-          letterSpacing: "0.04em",
-          color: "#111",
-          textDecoration: "none",
-          borderBottom: "1px solid #ccc",
-          paddingBottom: "2px",
-          width: "fit-content",
-          transition: "border-color 0.2s",
-        }}
-        onMouseEnter={e => e.currentTarget.style.borderColor = "#111"}
-        onMouseLeave={e => e.currentTarget.style.borderColor = "#ccc"}
+        className="font-mono-ui inline-flex items-center gap-1.5 text-[12.5px] text-[#8A8F9E] w-fit border-b border-[#232937] pb-[3px] transition-colors duration-200 hover:text-[#6EC9B8] hover:border-[#6EC9B8]"
       >
-        <ExternalLink size={13} />
-        Live Preview
+        <span className="text-[#D4A24C]">$</span> open {domainFromUrl(live)}
+        <ArrowUpRight size={12} />
       </a>
     </div>
   </div>
@@ -161,7 +115,9 @@ function Projects() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
       { threshold: 0.1 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
@@ -171,117 +127,105 @@ function Projects() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap');
 
-        .projects-swiper .swiper-slide {
-          height: auto;
-        }
+        .font-display { font-family: 'Fraunces', serif; }
+        .font-mono-ui { font-family: 'IBM Plex Mono', monospace; }
+        .font-body { font-family: 'Inter', sans-serif; }
 
-        .projects-swiper .swiper-pagination {
-          bottom: 0;
-        }
-
+        .projects-swiper .swiper-slide { height: auto; }
+        .projects-swiper .swiper-pagination { bottom: 0; }
         .projects-swiper .swiper-pagination-bullet {
-          background: #ccc;
+          background: #232937;
           opacity: 1;
           width: 6px;
           height: 6px;
         }
-
         .projects-swiper .swiper-pagination-bullet-active {
-          background: #111;
+          background: #D4A24C;
         }
       `}</style>
 
       <section
         id="projects"
         ref={sectionRef}
-        style={{
-          background: "#fafaf8",
-          padding: "5rem 2rem 5rem",
-          fontFamily: "'DM Sans', sans-serif",
-        }}
+        className="font-body bg-[#0B0F19] px-4 sm:px-6 lg:px-8 py-16 sm:py-20 relative overflow-hidden"
       >
-        <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+        {/* faint grid texture, matches the rest of the site */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "linear-gradient(#ECEAE3 1px, transparent 1px), linear-gradient(90deg, #ECEAE3 1px, transparent 1px)",
+            backgroundSize: "42px 42px",
+          }}
+        />
 
-          {/* Heading + Nav row */}
-          <div style={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "space-between",
-            marginBottom: "3rem",
-            gap: "1rem",
-            flexWrap: "wrap",
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(20px)",
-            transition: "opacity 0.6s ease, transform 0.6s ease",
-          }}>
+        <div className="max-w-[1000px] mx-auto relative">
+          {/* Heading + nav row */}
+          <div
+            className="flex items-end justify-between gap-4 flex-wrap mb-8"
+            style={{
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(20px)",
+              transition: "opacity 0.6s ease, transform 0.6s ease",
+            }}
+          >
             <div>
-              <p style={{
-                fontSize: "0.72rem",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "#aaa",
-                marginBottom: "0.5rem",
-                fontWeight: 400,
-              }}>
-                Selected Work
+              <p className="font-mono-ui text-xs tracking-[0.1em] uppercase text-[#6EC9B8] mb-2">
+                {"> selected work"}
               </p>
-              <h2 style={{
-                fontFamily: "'DM Serif Display', serif",
-                fontSize: "clamp(2rem, 5vw, 3rem)",
-                color: "#111",
-                fontWeight: 400,
-                margin: "0 0 0.75rem",
-                lineHeight: 1.1,
-              }}>
+              <h2 className="font-display text-[clamp(2rem,5vw,3rem)] text-[#ECEAE3] font-normal mb-3 leading-tight">
                 Projects
               </h2>
-              <div style={{ width: "40px", height: "1px", background: "#ccc" }} />
+              <div className="w-10 h-px bg-[#232937]" />
             </div>
 
             {/* Custom nav arrows */}
-            <div style={{ display: "flex", gap: "8px" }}>
+            <div className="flex gap-2">
               {[prevRef, nextRef].map((ref, i) => (
                 <button
                   key={i}
                   ref={ref}
-                  style={{
-                    width: "38px", height: "38px",
-                    borderRadius: "3px",
-                    border: "1px solid #e0e0dc",
-                    background: "#fff",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    cursor: "pointer",
-                    transition: "border-color 0.2s, background 0.2s",
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.borderColor = "#111";
-                    e.currentTarget.style.background = "#111";
-                    e.currentTarget.querySelector("svg").style.color = "#fff";
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.borderColor = "#e0e0dc";
-                    e.currentTarget.style.background = "#fff";
-                    e.currentTarget.querySelector("svg").style.color = "#555";
-                  }}
+                  className="w-9 h-9 border border-[#232937] bg-[#131826] flex items-center justify-center transition-colors duration-200 hover:border-[#D4A24C] hover:bg-[#D4A24C] group/nav"
                 >
-                  {i === 0
-                    ? <ArrowLeft size={15} color="#555" style={{ transition: "color 0.2s" }} />
-                    : <ArrowRight size={15} color="#555" style={{ transition: "color 0.2s" }} />
-                  }
+                  {i === 0 ? (
+                    <ArrowLeft
+                      size={15}
+                      className="text-[#8A8F9E] group-hover/nav:text-[#0B0F19] transition-colors"
+                    />
+                  ) : (
+                    <ArrowRight
+                      size={15}
+                      className="text-[#8A8F9E] group-hover/nav:text-[#0B0F19] transition-colors"
+                    />
+                  )}
                 </button>
               ))}
             </div>
           </div>
 
+          {/* prompt line */}
+          <div
+            className="font-mono-ui text-[12px] sm:text-[13px] text-[#8A8F9E] mb-5"
+            style={{
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(16px)",
+              transition: "opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s",
+            }}
+          >
+            <span className="text-[#D4A24C]">$</span> ls projects/ --deployed
+          </div>
+
           {/* Swiper */}
-          <div style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(24px)",
-            transition: "opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s",
-            paddingBottom: "2rem",
-          }}>
+          <div
+            className="pb-8"
+            style={{
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(24px)",
+              transition: "opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s",
+            }}
+          >
             <Swiper
               modules={[Navigation, Pagination]}
               spaceBetween={20}
@@ -305,7 +249,6 @@ function Projects() {
               ))}
             </Swiper>
           </div>
-
         </div>
       </section>
     </>

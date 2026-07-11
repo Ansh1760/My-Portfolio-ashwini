@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 const educationData = [
   {
+    hash: "a3f1c2d",
     year: "2023 – 2027",
     title: "B.Tech — Computer Science Engineering",
     place: "Shri Ramwaroop Memorial University, Lucknow",
@@ -9,12 +10,14 @@ const educationData = [
     details: "Data Structures, DBMS, OS, Computer Networks.",
   },
   {
+    hash: "88e4b91",
     year: "2022 – 2023",
     title: "Intermediate",
     place: "Sardar Patel Inter College, Bahraich",
     details: "Mathematics & Science focused.",
   },
   {
+    hash: "1c77a0f",
     year: "2020 – 2021",
     title: "High School",
     place: "Pt. Ram Naresh Inter College, Bahraich",
@@ -22,16 +25,7 @@ const educationData = [
   },
 ];
 
-const EducationCard = ({
-  year,
-  title,
-  place,
-  score,
-  details,
-  index,
-  isMobile,
-  isLast,
-}) => {
+const EducationCard = ({ hash, year, title, place, score, details, index, isLast }) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -55,148 +49,42 @@ const EducationCard = ({
   return (
     <div
       ref={ref}
+      className="flex flex-col sm:flex-row gap-4 sm:gap-6"
       style={{
-        display: "flex",
-        flexDirection: isMobile ? "column" : "row",
-        gap: isMobile ? "1rem" : "2rem",
         opacity: 0,
-        transform: "translateY(24px)",
-        transition: `opacity 0.6s ease ${
-          index * 0.15
-        }s, transform 0.6s ease ${index * 0.15}s`,
+        transform: "translateY(20px)",
+        transition: `opacity 0.6s ease ${index * 0.15}s, transform 0.6s ease ${index * 0.15}s`,
       }}
     >
-      {/* Year */}
-      <div
-        style={{
-          minWidth: isMobile ? "100%" : "110px",
-          textAlign: isMobile ? "left" : "right",
-          paddingTop: "2px",
-        }}
-      >
-        <span
-          style={{
-            fontSize: "0.72rem",
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            color: "#999",
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 400,
-          }}
-        >
-          {year}
-        </span>
+      {/* Rail: dot + connecting line */}
+      <div className="hidden sm:flex flex-col items-center">
+        <span className="w-2 h-2 rounded-full bg-[#D4A24C] mt-1.5 shrink-0" />
+        {!isLast && <span className="w-px flex-1 bg-[#232937] mt-1.5" />}
       </div>
 
-      {/* Timeline */}
-      {!isMobile && (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 0,
-          }}
-        >
-          <div
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: "#111",
-              marginTop: "5px",
-              flexShrink: 0,
-            }}
-          />
-
-          {!isLast && (
-            <div
-              style={{
-                width: "1px",
-                flex: 1,
-                background: "#e0e0dc",
-                marginTop: "6px",
-              }}
-            />
-          )}
+      {/* Commit-log entry */}
+      <div className={`font-mono-ui flex-1 ${isLast ? "" : "pb-6 sm:pb-7"}`}>
+        <div className="text-[12px] sm:text-[13px] text-[#8A8F9E] flex flex-wrap items-baseline gap-x-2">
+          <span className="text-[#D4A24C]">commit</span>
+          <span>{hash}</span>
+          <span className="text-[#6EC9B8] ml-auto sm:ml-3">{year}</span>
         </div>
-      )}
 
-      {/* Content */}
-      <div
-        style={{
-          background: "#fff",
-          border: "1px solid #e8e8e4",
-          borderRadius: "4px",
-          padding: isMobile ? "1rem" : "1.1rem 1.4rem",
-          flex: 1,
-          marginBottom: isLast ? 0 : "1.5rem",
-        }}
-      >
-        <h4
-          style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: isMobile ? "1rem" : "1.15rem",
-            color: "#111",
-            fontWeight: 400,
-            margin: "0 0 4px",
-            lineHeight: 1.4,
-          }}
-        >
+        <h4 className="font-display text-[#ECEAE3] text-[1.05rem] sm:text-[1.2rem] font-normal mt-2 mb-1 leading-snug">
           {title}
         </h4>
 
-        <p
-          style={{
-            fontSize: isMobile ? "0.78rem" : "0.82rem",
-            color: "#888",
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 300,
-            margin: "0 0 2px",
-            lineHeight: 1.6,
-          }}
-        >
-          {place}
-        </p>
+        <p className="text-[12.5px] sm:text-[13px] text-[#8A8F9E] leading-relaxed">{place}</p>
 
         {score && (
-          <p
-            style={{
-              fontSize: "0.8rem",
-              color: "#555",
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 500,
-              margin: "6px 0 0",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "5px",
-              flexWrap: "wrap",
-            }}
-          >
-            <span
-              style={{
-                display: "inline-block",
-                width: "6px",
-                height: "6px",
-                background: "#111",
-                borderRadius: "50%",
-              }}
-            />
+          <p className="inline-flex items-center gap-2 text-[12.5px] sm:text-[13px] text-[#6EC9B8] mt-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#6EC9B8]" />
             {score}
           </p>
         )}
 
         {details && (
-          <p
-            style={{
-              fontSize: isMobile ? "0.76rem" : "0.8rem",
-              color: "#aaa",
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 300,
-              marginTop: "8px",
-              lineHeight: 1.6,
-            }}
-          >
+          <p className="text-[12px] sm:text-[12.5px] text-[#5C6272] leading-relaxed mt-2">
             {details}
           </p>
         )}
@@ -206,86 +94,70 @@ const EducationCard = ({
 };
 
 export default function About() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap');
+
+        .font-display { font-family: 'Fraunces', serif; }
+        .font-mono-ui { font-family: 'IBM Plex Mono', monospace; }
+        .font-body { font-family: 'Inter', sans-serif; }
       `}</style>
 
       <section
         id="education"
-        style={{
-          background: "#fafaf8",
-          padding: isMobile ? "4rem 1rem" : "5rem 2rem",
-          fontFamily: "'DM Sans', sans-serif",
-        }}
+        className="font-body bg-[#0B0F19] px-4 sm:px-6 lg:px-8 py-16 sm:py-20 relative overflow-hidden"
       >
+        {/* faint grid texture, matches hero */}
         <div
+          className="pointer-events-none absolute inset-0 opacity-[0.035]"
           style={{
-            maxWidth: "820px",
-            margin: "0 auto",
+            backgroundImage:
+              "linear-gradient(#ECEAE3 1px, transparent 1px), linear-gradient(90deg, #ECEAE3 1px, transparent 1px)",
+            backgroundSize: "42px 42px",
           }}
-        >
+        />
+
+        <div className="max-w-[820px] mx-auto relative">
           {/* Heading */}
-          <div style={{ marginBottom: isMobile ? "2.5rem" : "3.5rem" }}>
-            <p
-              style={{
-                fontSize: "0.72rem",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "#aaa",
-                marginBottom: "0.5rem",
-                fontWeight: 400,
-              }}
-            >
-              Background
+          <div className="mb-10 sm:mb-14">
+            <p className="font-mono-ui text-xs tracking-[0.1em] uppercase text-[#6EC9B8] mb-2">
+              {"> background / education"}
             </p>
 
-            <h2
-              style={{
-                fontFamily: "'DM Serif Display', serif",
-                fontSize: "clamp(2rem, 5vw, 3rem)",
-                color: "#111",
-                fontWeight: 400,
-                margin: "0 0 0.75rem",
-                lineHeight: 1.1,
-              }}
-            >
+            <h2 className="font-display text-[clamp(2rem,5vw,3rem)] text-[#ECEAE3] font-normal mb-3 leading-tight">
               Education
             </h2>
 
-            <div
-              style={{
-                width: "40px",
-                height: "1px",
-                background: "#ccc",
-              }}
-            />
+            <div className="w-10 h-px bg-[#232937]" />
           </div>
 
-          {/* Timeline */}
-          <div>
-            {educationData.map((item, i) => (
-              <EducationCard
-                key={i}
-                {...item}
-                index={i}
-                isMobile={isMobile}
-                isLast={i === educationData.length - 1}
-              />
-            ))}
+          {/* Terminal panel */}
+          <div className="border border-[#232937] bg-[#131826]">
+            {/* title bar */}
+            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-[#232937]">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#E06C75]/70" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#D4A24C]/70" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#6EC9B8]/70" />
+              <span className="font-mono-ui text-[11px] text-[#8A8F9E] ml-2">education.log</span>
+            </div>
+
+            {/* prompt line */}
+            <div className="font-mono-ui text-[12px] sm:text-[13px] text-[#8A8F9E] px-5 sm:px-6 pt-5">
+              <span className="text-[#D4A24C]">$</span> git log --stat --author=ashwini
+            </div>
+
+            {/* Timeline */}
+            <div className="px-5 sm:px-6 pt-4 pb-6">
+              {educationData.map((item, i) => (
+                <EducationCard
+                  key={item.hash}
+                  {...item}
+                  index={i}
+                  isLast={i === educationData.length - 1}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>

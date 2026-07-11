@@ -12,12 +12,12 @@ function Navbar() {
   }, []);
 
   const navItems = [
-    { label: "Home", href: "#home" },
-    { label: "Education", href: "#education" },
-    { label: "Experience", href: "#experience" },
-    { label: "Skills", href: "#skills" },
-    { label: "Projects", href: "#projects" },
-    { label: "Contact", href: "#contact" },
+    { label: "home", href: "#home" },
+    { label: "education", href: "#education" },
+    { label: "experience", href: "#experience" },
+    { label: "skills", href: "#skills" },
+    { label: "projects", href: "#projects" },
+    { label: "contact", href: "#contact" },
   ];
 
   const handleNavClick = (e, href) => {
@@ -29,50 +29,54 @@ function Navbar() {
 
   return (
     <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
+        .font-mono-ui { font-family: 'IBM Plex Mono', monospace; }
+      `}</style>
+
       <nav
         className={`fixed w-full z-50 transition-all duration-500 ${
           scrolled ? "py-3" : "py-5"
         }`}
       >
-        {/* 🔥 FIXED WIDTH (IMPORTANT) */}
         <div className="max-w-[1400px] mx-auto px-4 md:px-6">
-
           {/* GLASS CONTAINER */}
           <div
-            className={`flex items-center justify-between px-6 rounded-2xl transition-all duration-500 ${
+            className={`font-mono-ui flex items-center justify-between px-6 rounded-xl transition-all duration-500 ${
               scrolled
-                ? "bg-white/60 backdrop-blur-xl shadow-md border border-gray-200"
-                : "bg-white/30 backdrop-blur-lg border border-white/30"
+                ? "bg-[#0B0F19]/80 backdrop-blur-xl shadow-lg border border-[#232937]"
+                : "bg-[#0B0F19]/40 backdrop-blur-lg border border-[#232937]/60"
             }`}
           >
-
             {/* LOGO */}
             <a
               href="#home"
               onClick={(e) => handleNavClick(e, "#home")}
-              className="py-3"
+              className="py-3 flex items-baseline gap-0.5"
             >
-              <span className="text-2xl sm:text-3xl font-extrabold tracking-tight 
-              bg-black bg-clip-text text-transparent">
-                Ashwini
+              <span className="text-[15px] sm:text-base font-medium text-[#ECEAE3]">
+                ashwini
               </span>
+              <span className="text-[15px] sm:text-base text-[#D4A24C]">@</span>
+              <span className="text-[15px] sm:text-base text-[#6EC9B8]">dev</span>
             </a>
 
             {/* DESKTOP NAV */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-7">
               {navItems.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className="relative group text-gray-800 font-medium transition"
+                  className="relative group text-[13px] text-[#8A8F9E] transition-colors"
                 >
-                  <span className="group-hover:text-violet-600 transition">
+                  <span className="text-[#5C6272] group-hover:text-[#D4A24C] transition-colors">
+                    ~/
+                  </span>
+                  <span className="group-hover:text-[#ECEAE3] transition-colors">
                     {item.label}
                   </span>
-
-                  {/* 🔥 FIXED UNDERLINE */}
-                  <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gradient-to-r from-violet-600 to-indigo-600 transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute left-0 -bottom-1.5 h-px w-0 bg-[#D4A24C] transition-all duration-300 group-hover:w-full" />
                 </a>
               ))}
             </div>
@@ -80,12 +84,12 @@ function Navbar() {
             {/* MOBILE BUTTON */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-white/40 backdrop-blur-lg border border-gray-200 hover:bg-white/70 transition"
+              className="md:hidden p-2 rounded-lg bg-[#131826] border border-[#232937] hover:border-[#D4A24C] transition-colors"
             >
               {isMenuOpen ? (
-                <X className="w-6 h-6 text-gray-800" />
+                <X className="w-5 h-5 text-[#ECEAE3]" />
               ) : (
-                <Menu className="w-6 h-6 text-gray-800" />
+                <Menu className="w-5 h-5 text-[#ECEAE3]" />
               )}
             </button>
           </div>
@@ -99,19 +103,17 @@ function Navbar() {
               : "opacity-0 -translate-y-4 pointer-events-none"
           }`}
         >
-          <div className="max-w-[1400px] mx-auto rounded-2xl bg-white/80 backdrop-blur-xl border border-gray-200 shadow-lg py-4">
-
+          <div className="font-mono-ui max-w-[1400px] mx-auto rounded-xl bg-[#131826] border border-[#232937] shadow-lg py-2 overflow-hidden">
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="block px-6 py-3 text-gray-800 font-medium hover:bg-violet-50 hover:text-violet-600 transition"
+                className="flex items-center gap-1.5 px-6 py-3 text-[13px] text-[#8A8F9E] hover:bg-[#0B0F19] hover:text-[#ECEAE3] transition-colors"
               >
-                {item.label}
+                <span className="text-[#D4A24C]">$</span> cd ~/{item.label}
               </a>
             ))}
-
           </div>
         </div>
       </nav>
@@ -119,7 +121,7 @@ function Navbar() {
       {/* OVERLAY */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 md:hidden"
+          className="fixed inset-0 bg-[#0B0F19]/70 backdrop-blur-sm z-40 md:hidden"
           onClick={() => setIsMenuOpen(false)}
         />
       )}
