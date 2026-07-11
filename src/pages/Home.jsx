@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import profileImg from "../assets/home.jpeg";
 import { Mail, Download, ArrowUpRight } from "lucide-react";
 
-import resume from "../assets/Ashwini_tripathi_Resume.pdf";
+import resume from "../assets/Ashwini_Tripathi_Resume.pdf";
 
 const LEETCODE_USERNAME = "Ansh1760";
 const GITHUB_USERNAME = "Ansh1760";
